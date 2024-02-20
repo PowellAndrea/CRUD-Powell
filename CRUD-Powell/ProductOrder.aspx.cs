@@ -28,24 +28,37 @@ namespace CRUD_Powell
 
                 SqlDataReader reader = sqlCmd.ExecuteReader();
 
-                foreach(var item in reader)
+                foreach (var item in reader)
                 {
                     Product p = new Product();
+                    p.Id = reader.GetInt32(0);
                     p.ProductName = reader.GetString(1);
                     p.UnitPrice = reader.GetDecimal(2);
                     p.Package = reader.GetString(3);
 
-
+                    productList.Add(p);
                 }
 
-                //sqlCmd.ExecuteNonQuery();
+                ProductRepeater.DataSource = productList;
+                ProductRepeater.DataBind();
 
+                conn.Dispose();
                 conn.Close();
             }
+           
+        }
+
+        protected void ProductRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
 
         }
 
-        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void OrderNow(object sender, EventArgs e)
         {
 
         }
