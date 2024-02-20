@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD-Powell", "CRUD-Powell\CRUD-Powell.csproj", "{653FCC23-54BA-4244-8E6D-888119118494}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{653FCC23-54BA-4244-8E6D-888119118494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653FCC23-54BA-4244-8E6D-888119118494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{653FCC23-54BA-4244-8E6D-888119118494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653FCC23-54BA-4244-8E6D-888119118494}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2786C9E3-FB20-4747-B163-54387FC15FD8}
+	EndGlobalSection
+EndGlobal
