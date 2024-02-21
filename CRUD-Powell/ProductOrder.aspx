@@ -13,30 +13,33 @@
         <div id="customer" class="container">
             <h2>Who are you?</h2>
             <br />
-            <div class="table">
-                <div class="row">
-                    <div class="column">First Name:</div>
-                    <input id="FirstName" type="text" value="Andrea" />
-                </div>
-                
-                <div class="row">
-                    <div class="column">Last Name:</div>
-                    <input id="LastName" type="text" value="Powell" />
-                </div>
-                <div class="row">
-                    <div class="column">City:</div>
-                    <input id="City" type="text" value="Chehalis" />
-                </div>
-                <div class="row">
-                    <div class="column">Country</div>
-                    <input id="Country" type="text" value="USA" />
-                </div>
-                <div class="row">
-                    <div class="column">Phone:</div>
-                    <asp:textbox runat="server" id="Phone" type="phone" value="3605551234" />
-                </div>
+            <table class="table">
+                <tr>
+                <td>First Name:</td>
+                <td><asp:TextBox ID="FirstName" runat="server" Text="Andrea3"/></td>
+                </tr>
+
+                <tr>
+                    <td>First Name:</td>
+                    <td><asp:TextBox ID="LastName" runat="server" Text="Powell"                       AutoPostBack="true" /></td>
+                </tr>
+
+                <tr>
+                    <td>City:</td>
+                    <td><asp:TextBox ID="City" runat="server" Text="Centralia"                       AutoPostBack="true" /></td>
+                </tr>
+
+                <tr>
+                    <td>Country:</td>
+                    <td><asp:TextBox ID="Country" runat="server" Text="USA"                       AutoPostBack="true" /></td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td><asp:TextBox ID="Phone" runat="server" Text="(360)555-1234"                       AutoPostBack="true" /></td>
+                </tr>
+
+            </table>
             </div>
-        </div>
        
         <asp:button ID="btnSubmit"
             runat="server" 

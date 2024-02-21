@@ -42,39 +42,6 @@ namespace CRUD_Powell
             }
         }
 
-        //private void BindData()
-        //{ 
-        //    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
-        //    {
-        //        SqlCommand sqlCmd = new SqlCommand("dbo.ProductList_Powell", conn);
-        //        conn.Open();
-
-        //        sqlCmd.Connection = conn;
-        //        sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-        //        SqlDataReader reader = sqlCmd.ExecuteReader();
-        //        ProductRepeater.DataSource = reader;
-                
-        //        //foreach (var item in reader)
-        //        //{
-        //        //    Product p = new Product();
-        //        //    p.Id = reader.GetInt32(0);
-        //        //    p.ProductName = reader.GetString(1);
-        //        //    p.UnitPrice = reader.GetDecimal(2);
-        //        //    p.Package = reader.GetString(3);
-
-        //        //    productList.Add(p);
-        //        //}
-
-        //        //ProductRepeater.DataSource = productList;
-        //        ProductRepeater.DataBind();
-
-        //        conn.Close();
-        //        conn.Dispose();
-        //    }
-        //}
-
-
         protected void ProductRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             //RepeaterItem row = e.Item as RepeaterItem;
@@ -94,33 +61,53 @@ namespace CRUD_Powell
 
 
         protected void Submit(object sender, EventArgs e)
-        { 
-            List<OrderItem> orderItems = new List<OrderItem>();
-            customer = new Customer();
-            
-            // Need to find control data for customer
-            var FirstName = FindControl("FirstName") as Label;
+        {
+            var FirstName = FindControl("FirstName") as TextBox;
+            var LastName = FindControl("LastName") as TextBox;
+            var City = FindControl("City") as TextBox;
+            var Country = FindControl("Country") as TextBox;
+            var Phone = FindControl("Phone") as TextBox;
+
             //customer.FirstName = form1.FindControl("FirstName").ToString();
             //customer.LastName = form1.FindControl("LastName").ToString();
             //customer.City = form1.FindControl("City").ToString();
             //customer.Phone = form1.FindControl("Phone").ToString();
 
-            foreach(RepeaterItem item in ProductRepeater.Items)
+            string strProductOrders = string.Empty;
+
+            foreach (RepeaterItem item in ProductRepeater.Items)
             {
-                OrderItem orderItem = new OrderItem();
-                
-                var foo = item.FindControl("key") as Label;
-                orderItem.Id = int.Parse(foo.Text);
+                //var Quantity = item.FindControl("Quantity") as TextBox;
+                //if (int.Parse(Quantity.Text) > 0)
+                //{
+                //    var Key = item.FindControl("key") as Label;
+                //    int key = int.Parse(Key.Text);
+                //    //int quantity= int.Parse(Quantity.Text);
+                //    //strProductOrders.Append()
+                //}
 
-                var bar = item.FindControl("Quantity") as TextBox;
-                orderItem.Quantity = int.Parse(bar.Text);
-
-                orderItems.Add(orderItem);
             }
 
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
+            {
+                SqlCommand sqlCmd = new SqlCommand("dbo.InsertCustomerAndOrder_Powell", conn);
+                conn.Open();
 
-            // Call Stored Procedure to Insert
-            // Redirect to Confirmation Page
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                sqlCmd.Parameters.AddWithValue("@FirstName", FirstName.Text);
+                sqlCmd.Parameters.AddWithValue("@LastName", FirstName.Text);
+                sqlCmd.Parameters.AddWithValue("@City", FirstName.Text);
+                sqlCmd.Parameters.AddWithValue("@Country", FirstName.Text);
+                sqlCmd.Parameters.AddWithValue("@Phone", FirstName.Text);
+
+                sqlCmd.ExecuteNonQuery();
+
+                conn.Close();
+                conn.Dispose();
+            }
+
         }
     }
 }
