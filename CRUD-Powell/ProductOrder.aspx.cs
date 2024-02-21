@@ -9,32 +9,38 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-using System.Drawing;
-using System.Web.Services.Description;
 
 namespace CRUD_Powell
 {
     public partial class ProductOrder : System.Web.UI.Page
     {
-        //List<Product> productList = new List<Product>();
-        Customer customer;
-        List<OrderItem> orderItems;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            List<Product> productList = new List<Product>();
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
+                SqlCommand sqlCmd = new SqlCommand("dbo.ProductList_Powell", conn);
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlDataReader reader = sqlCmd.ExecuteReader();
+
+                foreach (var item in reader)
                 {
-                    SqlCommand sqlCmd = new SqlCommand("dbo.ProductList_Powell", conn);
-                    conn.Open();
+                    Product p = new Product();
+                    p.Id = reader.GetInt32(0);
+                    p.ProductName = reader.GetString(1);
+                    p.UnitPrice = reader.GetDecimal(2);
+                    p.Package = reader.GetString(3);
 
-                    sqlCmd.Connection = conn;
-                    sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    productList.Add(p);
+                }
 
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
-                    ProductRepeater.DataSource = reader;
-                    ProductRepeater.DataBind();
+                ProductRepeater.DataSource = productList;
+                ProductRepeater.DataBind();
 
                     conn.Close();
                     conn.Dispose();
@@ -55,7 +61,6 @@ namespace CRUD_Powell
 
         protected void ProductRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            //int key = int.Parse(e.CommandArgument.ToString());
 
         }
 
