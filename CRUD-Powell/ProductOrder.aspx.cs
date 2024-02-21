@@ -116,9 +116,9 @@ namespace CRUD_Powell
                 sqlCmd.Parameters.AddWithValue("@Phone",City.Text);
 
                 // Fix This
-                sqlCmd.Parameters.AddWithValue("@ProductID", 1);
-                sqlCmd.Parameters.AddWithValue("@OrderQty",2);
-                sqlCmd.Parameters.AddWithValue("@UnitPrice", 12);
+                sqlCmd.Parameters.AddWithValue("@ProductID", 5);
+                sqlCmd.Parameters.AddWithValue("@OrderQty",6);
+                sqlCmd.Parameters.AddWithValue("@UnitPrice", 7);
                 //sqlCmd.Parameters.AddWithValue("@ProductID", ProductID.Text);
                 //sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
                 
@@ -127,7 +127,7 @@ namespace CRUD_Powell
                 conn.Close();
                 conn.Dispose();
             }
-            //Response.Redirect("Confirmation.aspx");
+            Response.Redirect("Confirmation.aspx");
             //Server.Transfer("Confirmation.aspx");
 
         }
