@@ -65,15 +65,18 @@ namespace CRUD_Powell
 
     }
 
-    protected void Submit(object sender, EventArgs e)
+    protected void Button1_Click(object sender, EventArgs e)
         {
             var FirstName = FindControl("FirstName") as TextBox;
             var LastName = FindControl("LastName") as TextBox;
             var City = FindControl("City") as TextBox;
             var Country = FindControl("Country") as TextBox;
             var Phone = FindControl("Phone") as TextBox;
-            int ProductID = 0;
-            int OrderQty = 0;
+            //var ProductID = FindControl("ctrlProductID") as Label;
+            //var OrderQty = FindControl("ctrlQuantity") as TextBox;
+            var ctrlPrice = FindControl("UnitPrice") as Label;
+            //float UnitPrice = 12;
+            //decimal UnitPrice = decimal.Parse(ctrlPrice.Text);
 
             //customer.FirstName = form1.FindControl("FirstName").ToString();
             //customer.LastName = form1.FindControl("LastName").ToString();
@@ -84,19 +87,19 @@ namespace CRUD_Powell
             //    dt.Columns.Add("ProductID", typeof(Int32));
             //    dt.Columns.Add("Quantity", typeof(Int32));
 
-            foreach (RepeaterItem item in ProductRepeater.Items)
-            {
-                var tbQty = item.FindControl("Quantity") as TextBox;
-                var txQty = tbQty.Text;
-                if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
-                {
-                    var Key = item.FindControl("key") as Label;
-                    ProductID = int.Parse(Key.Text);
-                    OrderQty = int.Parse(tbQty.Text);
-                    // Stopping after first non 0 quantity found
-                    break;
-                }
-            }
+            //foreach (RepeaterItem item in ProductRepeater.Items)
+            //{
+            //    var tbQty = item.FindControl("Quantity") as TextBox;
+            //    //var txQty = tbQty.Text;
+            //    if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
+            //    {
+            //        var Key = item.FindControl("key") as Label;
+            //        ProductID = int.Parse(Key.Text);
+            //        OrderQty = int.Parse(tbQty.Text);
+            //        // Stopping after first non 0 quantity found
+            //        break;
+            //    }
+            //}
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
             {
@@ -107,18 +110,25 @@ namespace CRUD_Powell
                 sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 sqlCmd.Parameters.AddWithValue("@FirstName", FirstName.Text);
-                sqlCmd.Parameters.AddWithValue("@LastName", FirstName.Text);
-                sqlCmd.Parameters.AddWithValue("@City", FirstName.Text);
-                sqlCmd.Parameters.AddWithValue("@Country", FirstName.Text);
-                sqlCmd.Parameters.AddWithValue("@Phone", FirstName.Text);
+                sqlCmd.Parameters.AddWithValue("@LastName", LastName.Text);
+                sqlCmd.Parameters.AddWithValue("@City", City.Text);
+                sqlCmd.Parameters.AddWithValue("@Country", Country.Text);
+                sqlCmd.Parameters.AddWithValue("@Phone",City.Text);
 
-                sqlCmd.Parameters.AddWithValue("@ProductID", ProductID);
-                sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
+                // Fix This
+                sqlCmd.Parameters.AddWithValue("@ProductID", 1);
+                sqlCmd.Parameters.AddWithValue("@OrderQty",2);
+                sqlCmd.Parameters.AddWithValue("@UnitPrice", 12);
+                //sqlCmd.Parameters.AddWithValue("@ProductID", ProductID.Text);
+                //sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
+                
                 sqlCmd.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
             }
+            //Response.Redirect("Confirmation.aspx");
+            //Server.Transfer("Confirmation.aspx");
 
         }
     }

@@ -41,13 +41,15 @@
        
         <h2>Product List</h2>
         <p>
-            <asp:Button type="submit" runat="server" OnClick="Submit" Text="Submit Order" />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
         </p>
+
         <asp:Repeater ID="ProductRepeater" runat="server">
             <HeaderTemplate>
                 <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col"></th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Product Name</th>
                                 <th scope="col">Packaging</th>
@@ -60,8 +62,8 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="key" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
-                        <asp:TextBox ID="Quantity" runat="server" size="2" TextMode="Number" AutoPostBack="true"/>
+                        <asp:Label ID="ctrlProductID" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
+                        <asp:TextBox ID="ctrlQuantity" runat="server" size="2" TextMode="Number" />
                     </td>
                     <td>
                         <asp:Label ID="ProductName" runat="server" Text='<%#Eval("ProductName") %>' />
