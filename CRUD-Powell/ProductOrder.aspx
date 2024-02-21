@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td>Phone:</td>
-                    <td><asp:TextBox ID="Phone" runat="server" Text="(360)555-1234"                       AutoPostBack="true" /></td>
+                    <td><asp:TextBox ID="Phone" runat="server" Text="(360)555-1234" AutoPostBack="true" /></td>
                 </tr>
 
             </table>
@@ -41,7 +41,7 @@
        
         <h2>Product List</h2>
         <p>
-            <asp:Button type="submit" runat="server" OnClick="OrderNow" Text="Submit Order" />
+            <asp:Button type="submit" runat="server" OnClick="Submit" Text="Submit Order" />
         </p>
         <asp:Repeater ID="ProductRepeater" runat="server" OnItemCommand="ProductRepeater_ItemCommand">
             <HeaderTemplate>
@@ -61,10 +61,8 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:CheckBox runat="server" />
-                    </td>
-                    <td>
-                        <input ID="Quantity" runat="server" size="4"/>
+                        <asp:Label ID="Label1" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
+                        <asp:TextBox ID="Quantity" runat="server" size="4" TextMode="Number"/>
                     </td>
                     <td>
                         <asp:Label ID="ProductName" runat="server" Text='<%#Eval("ProductName") %>' />
@@ -75,9 +73,6 @@
                     <td>
                         <asp:Label ID="UnitPrice" runat="server" Text='<%#Eval("UnitPrice") %>' />
                     </td>
-                    <td>
-                        <asp:Label ID="Id" runat="server" Text='<%#Eval("Id") %>' />
-                    </td>>
                 </tr>
             </ItemTemplate>
 

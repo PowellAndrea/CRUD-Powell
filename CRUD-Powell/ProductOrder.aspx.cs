@@ -46,7 +46,6 @@ namespace CRUD_Powell
                     conn.Dispose();
                 }
             }
-        }
 
         protected void ProductRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
