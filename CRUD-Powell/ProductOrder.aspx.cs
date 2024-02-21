@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using Microsoft.SqlServer.Server;
+using System.Data;
 
 namespace CRUD_Powell
 {
@@ -45,7 +47,7 @@ namespace CRUD_Powell
                     conn.Close();
                     conn.Dispose();
                 }
-            }
+        }
 
         protected void ProductRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -58,38 +60,42 @@ namespace CRUD_Powell
             //}
         }
 
-        protected void ProductRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
+    protected void ProductRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
 
-        }
+    }
 
-
-        protected void Submit(object sender, EventArgs e)
+    protected void Submit(object sender, EventArgs e)
         {
             var FirstName = FindControl("FirstName") as TextBox;
             var LastName = FindControl("LastName") as TextBox;
             var City = FindControl("City") as TextBox;
             var Country = FindControl("Country") as TextBox;
             var Phone = FindControl("Phone") as TextBox;
+            int ProductID = 0;
+            int OrderQty = 0;
 
             //customer.FirstName = form1.FindControl("FirstName").ToString();
             //customer.LastName = form1.FindControl("LastName").ToString();
             //customer.City = form1.FindControl("City").ToString();
             //customer.Phone = form1.FindControl("Phone").ToString();
 
-            string strProductOrders = string.Empty;
+            //DataTable dt = new DataTable();
+            //    dt.Columns.Add("ProductID", typeof(Int32));
+            //    dt.Columns.Add("Quantity", typeof(Int32));
 
             foreach (RepeaterItem item in ProductRepeater.Items)
             {
-                //var Quantity = item.FindControl("Quantity") as TextBox;
-                //if (int.Parse(Quantity.Text) > 0)
-                //{
-                //    var Key = item.FindControl("key") as Label;
-                //    int key = int.Parse(Key.Text);
-                //    //int quantity= int.Parse(Quantity.Text);
-                //    //strProductOrders.Append()
-                //}
-
+                var tbQty = item.FindControl("Quantity") as TextBox;
+                var txQty = tbQty.Text;
+                if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
+                {
+                    var Key = item.FindControl("key") as Label;
+                    ProductID = int.Parse(Key.Text);
+                    OrderQty = int.Parse(tbQty.Text);
+                    // Stopping after first non 0 quantity found
+                    break;
+                }
             }
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
@@ -106,6 +112,8 @@ namespace CRUD_Powell
                 sqlCmd.Parameters.AddWithValue("@Country", FirstName.Text);
                 sqlCmd.Parameters.AddWithValue("@Phone", FirstName.Text);
 
+                sqlCmd.Parameters.AddWithValue("@ProductID", ProductID);
+                sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
                 sqlCmd.ExecuteNonQuery();
 
                 conn.Close();

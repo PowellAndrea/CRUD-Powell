@@ -14,7 +14,7 @@
             <table class="table">
                 <tr>
                 <td>First Name:</td>
-                <td><asp:TextBox ID="FirstName" runat="server" Text="Andrea3"/></td>
+                <td><asp:TextBox ID="FirstName" runat="server" Text="Andrea" AutoPostBack="true"/></td>
                 </tr>
 
                 <tr>
@@ -43,12 +43,11 @@
         <p>
             <asp:Button type="submit" runat="server" OnClick="Submit" Text="Submit Order" />
         </p>
-        <asp:Repeater ID="ProductRepeater" runat="server" OnItemCommand="ProductRepeater_ItemCommand">
+        <asp:Repeater ID="ProductRepeater" runat="server">
             <HeaderTemplate>
                 <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">  </th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Product Name</th>
                                 <th scope="col">Packaging</th>
@@ -61,8 +60,8 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="Label1" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
-                        <asp:TextBox ID="Quantity" runat="server" size="4" TextMode="Number"/>
+                        <asp:Label ID="key" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
+                        <asp:TextBox ID="Quantity" runat="server" size="2" TextMode="Number" AutoPostBack="true"/>
                     </td>
                     <td>
                         <asp:Label ID="ProductName" runat="server" Text='<%#Eval("ProductName") %>' />
@@ -83,9 +82,7 @@
             </FooterTemplate>
         </asp:Repeater>
 
-
-
-            <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" ProviderName="<%$ ConnectionStrings:GourmetShopConnectionString.ProviderName %>" SelectCommand="ProductList_Powell" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" ProviderName="<%$ ConnectionStrings:GourmetShopConnectionString.ProviderName %>" SelectCommand="ProductList_Powell" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
     </form>
 </body>
 </html>
