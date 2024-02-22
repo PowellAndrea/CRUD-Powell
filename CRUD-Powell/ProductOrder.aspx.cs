@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using Microsoft.SqlServer.Server;
 using System.Data;
+using System.Web.DynamicData;
 
 namespace CRUD_Powell
 {
@@ -65,27 +66,23 @@ namespace CRUD_Powell
 
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void ctrlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var FirstName = FindControl("FirstName") as TextBox;
-            var LastName = FindControl("LastName") as TextBox;
-            var City = FindControl("City") as TextBox;
-            var Country = FindControl("Country") as TextBox;
-            var Phone = FindControl("Phone") as TextBox;
+            var FirstName = FindControl("ctrlFirstName") as TextBox;
+            var LastName = FindControl("ctrlLastName") as TextBox;
+            var City = FindControl("ctrlCity") as TextBox;
+            var Country = FindControl("ctrlCountry") as TextBox;
+            var Phone = FindControl("ctrlPhone") as TextBox;
+
             //var ProductID = FindControl("ctrlProductID") as Label;
             //var OrderQty = FindControl("ctrlQuantity") as TextBox;
-            var ctrlPrice = FindControl("UnitPrice") as Label;
-            //float UnitPrice = 12;
-            //decimal UnitPrice = decimal.Parse(ctrlPrice.Text);
+            var ctrlPrice = FindControl("ctrlPrice") as Label;
+
 
             //customer.FirstName = form1.FindControl("FirstName").ToString();
             //customer.LastName = form1.FindControl("LastName").ToString();
             //customer.City = form1.FindControl("City").ToString();
             //customer.Phone = form1.FindControl("Phone").ToString();
-
-            //DataTable dt = new DataTable();
-            //    dt.Columns.Add("ProductID", typeof(Int32));
-            //    dt.Columns.Add("Quantity", typeof(Int32));
 
             //foreach (RepeaterItem item in ProductRepeater.Items)
             //{
@@ -118,18 +115,23 @@ namespace CRUD_Powell
                 // Fix This
                 sqlCmd.Parameters.AddWithValue("@ProductID", 5);
                 sqlCmd.Parameters.AddWithValue("@OrderQty",6);
-                sqlCmd.Parameters.AddWithValue("@UnitPrice", 7);
+
+                int UnitPrice = 0;
+                UnitPrice = int.Parse(ctrlPrice.Text);
+                sqlCmd.Parameters.AddWithValue("@UnitPrice", UnitPrice);
+                //sqlCmd.Parameters.AddWithValue("@UnitPrice", int.Parse(ctrlPrice.Text));
                 //sqlCmd.Parameters.AddWithValue("@ProductID", ProductID.Text);
                 //sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
-                
+
+                sqlCmd.Parameters.AddWithValue("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
                 sqlCmd.ExecuteNonQuery();
+
+                //int customerID = (int)sqlCmd.Parameters["@CustomerID"].Value;
 
                 conn.Close();
                 conn.Dispose();
             }
             Response.Redirect("Confirmation.aspx");
-            //Server.Transfer("Confirmation.aspx");
-
         }
     }
 }
