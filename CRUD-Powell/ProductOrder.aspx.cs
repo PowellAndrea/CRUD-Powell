@@ -29,7 +29,8 @@ namespace CRUD_Powell
 
         string strProductDetail = string.Empty;
         int ProductID = 0;
-        decimal ProductPrice = 0;
+        string ProductName = string.Empty;
+        decimal UnitPrice = 0;
         int Quantity = 0;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -44,13 +45,14 @@ namespace CRUD_Powell
 
                 SqlDataReader reader = sqlCmd.ExecuteReader();
 
-                foreach (var item in reader)
-                {
-                    ProductID = reader.GetInt32(0);
-            // Format as Money
-                    ProductPrice = reader.GetDecimal(2);
-                    strProductDetail = reader.GetString(1) + " - " + ProductPrice.ToString() + " (" + reader.GetString(3) +")";
-                }
+                //foreach (var item in reader)
+                //{
+                //    int ProductID = reader.GetInt32(0);
+                //    string ProductName = reader.GetName(1);
+                //    decimal UnitPrice = reader.GetDecimal(2);
+                //    string Package = reader.GetString(3);
+                //    string strProductDetail = reader.GetString(1) + " - " + UnitPrice.ToString() + " (" + reader.GetString(3) +")";
+                //}
 
                 conn.Close();
                 conn.Dispose();
@@ -80,53 +82,15 @@ namespace CRUD_Powell
 
         //}
 
-        protected void ctrlProduct_DataBinding(object sender, EventArgs e)
-        {
-            //FindControl("ctrlProduct");
-            //ProductID = int.Parse(Key.Text);
-            //        OrderQty = int.Parse(tbQty.Text);
-            //            < asp:Label ID = "lblProductName" runat = "server" Text = '<%#Eval("ProductName") %>' />
-            //< asp:Label ID = "lblUnitPrice" runat = "server" Text = '<%#Eval("UnitPrice") %>' />
-            ////<asp:Label ID="lblProductID" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
-            //< asp:TextBox ID = "ctrlQuantity" runat = "server" size = "2" TextMode = "Number" />
-            //< asp:Label ID = "lblPackage" runat = "server" Text = '<%#Eval("Package")%>' />
+        //protected void ctrlProduct_DataBinding(object sender, EventArgs e)
+        //{
+        //    //FindControl("ctrlProduct");
+        //    ProductID = int.Parse(lblProductID.ToString());
+        //    UnitPrice = decimal.Parse(lblUnitPrice.ToString());
+        //    ProductName = lblProductName.ToString();
+        //    strProductDetail = lblProductName.ToString();
+        //}
 
-            //    var tbQty = item.FindControl("Quantity") as TextBox;
-            //    //var txQty = tbQty.Text;
-            //    if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
-            //    {
-            //        var Key = item.FindControl("key") as Label;
-            //        ProductID = int.Parse(Key.Text);
-            //        OrderQty = int.Parse(tbQty.Text);
-
-            //ProductID = int.Par  (#Eval("UnitPrice"))
-
-
-        }
-
-
-        protected void ctrlProduct_DataBound(object sender, EventArgs e)
-        {
-            //FindControl("ctrlProduct");
-            //ProductID = int.Parse(Key.Text);
-            //        OrderQty = int.Parse(tbQty.Text);
-
-
-
-            //    var tbQty = item.FindControl("Quantity") as TextBox;
-            //    //var txQty = tbQty.Text;
-            //    if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
-            //    {
-            //        var Key = item.FindControl("key") as Label;
-            //        ProductID = int.Parse(Key.Text);
-            //        OrderQty = int.Parse(tbQty.Text);
-            //string FirstName = string.Empty;
-            //string LastName = string.Empty;
-            //string City = string.Empty;
-            //string Country = string.Empty;
-            //string Phone = string.Empty;
-
-        }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -145,25 +109,20 @@ namespace CRUD_Powell
                 sqlCmd.Parameters.AddWithValue("@Phone", ctrlCity.Text);
 
                 // Fix This
-                sqlCmd.Parameters.AddWithValue("@ProductID", ProductID);
-                sqlCmd.Parameters.AddWithValue("@OrderQty", Quantity);
-                sqlCmd.Parameters.AddWithValue("@UnitPrice", ProductPrice);
-                //sqlCmd.Parameters.AddWithValue("@UnitPrice", int.Parse(ctrlPrice.Text));
-                //sqlCmd.Parameters.AddWithValue("@ProductID", ProductID.Text);
-                //sqlCmd.Parameters.AddWithValue("@OrderQty", OrderQty);
+                sqlCmd.Parameters.AddWithValue("@ProductID", int.Parse(ctrlProduct.Text));
+                sqlCmd.Parameters.AddWithValue("@OrderQty", int.Parse(ctrlQuantity.Text));
+                //var foo = lblUnitPrice.Text;
+                //var bar = int.Parse(lblUnitPrice.Text);
+                //var bar = decimal.Parse(foo);
+                //sqlCmd.Parameters.AddWithValue("@UnitPrice", int.Parse(lblUnitPrice.Text));
 
-                sqlCmd.Parameters.AddWithValue("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
-                sqlCmd.ExecuteNonQuery();
-
-                //int customerID = (int)sqlCmd.Parameters["@CustomerID"].Value;
+                sqlCmd.Parameters.Add("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
+                var CustomerID = sqlCmd.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
             }
             Response.Redirect("Confirmation.aspx");
-
-            //var ProductID = FindControl("ctrlProductID") as Label;
-            //var OrderQty = FindControl("ctrlQuantity") as TextBox;
         }
     }
 }

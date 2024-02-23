@@ -39,10 +39,12 @@
             </div>
        
         <h2>Product List</h2>
+            <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" TextMode = "Number" AutoPostBack="true" />
+
+
             <asp:Label ID = "lblProductName" runat = "server" Visible="false" Text = '<%#Eval("ProductName") %>' />
             <asp:Label ID = "lblUnitPrice" runat = "server" Visible="false" Text = '<%#Eval("UnitPrice") %>' />
-            <asp:Label ID="lblProductID" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
-            <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" width="4" TextMode = "Number" />
+            <asp:Label ID = "lblProductID" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
             <asp:Label ID = "lblPackage" runat = "server" Visible="false" Text = '<%#Eval("Package")%>' />
 
 
@@ -52,8 +54,7 @@
                 AutoPostBack="True" 
                 DataSourceID="GourmetShop" 
                 DataTextField = "ProductName"  
-                DataValueField="Id">
-            </asp:DropDownList>
+                DataValueField="Id"/>
         </p>
 
         <p>

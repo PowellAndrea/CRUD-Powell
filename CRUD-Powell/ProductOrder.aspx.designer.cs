@@ -69,6 +69,15 @@ namespace CRUD_Powell
         protected global::System.Web.UI.WebControls.TextBox ctrlPhone;
 
         /// <summary>
+        /// ctrlQuantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ctrlQuantity;
+
+        /// <summary>
         /// lblProductName control.
         /// </summary>
         /// <remarks>
@@ -94,15 +103,6 @@ namespace CRUD_Powell
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProductID;
-
-        /// <summary>
-        /// ctrlQuantity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ctrlQuantity;
 
         /// <summary>
         /// lblPackage control.
