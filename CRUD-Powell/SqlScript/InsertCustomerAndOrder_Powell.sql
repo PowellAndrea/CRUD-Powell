@@ -1,7 +1,7 @@
 USE [GourmetShop]
 GO
 
-/****** Object:  StoredProcedure [dbo].[InsertCustomerAndOrder_Powell]    Script Date: 2/23/2024 9:55:07 AM ******/
+/****** Object:  StoredProcedure [dbo].[InsertCustomerAndOrder_Powell]    Script Date: 2/23/2024 10:04:38 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -31,6 +31,7 @@ SET @UnitPrice = (Select UnitPrice FROM [Product] WHERE Product.ID = @ProductID)
 
 SET @OrderNumber = CAST(FLOOR(RAND()*(10000) + 1) AS nvarchar(5)) + LEFT(@LastName,2)
 
+BEGIN Transaction
 	INSERT INTO dbo.Customer(
 		FirstName,
 		LastName,
@@ -71,6 +72,7 @@ VALUES(
 	@UnitPrice,
 	@OrderQty
 	)
+COMMIT
 end
 GO
 

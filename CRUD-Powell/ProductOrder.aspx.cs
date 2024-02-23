@@ -1,5 +1,4 @@
-﻿using CRUD_Powell.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.Sql;
@@ -58,30 +57,6 @@ namespace CRUD_Powell
                 conn.Dispose();
             }
         }
-
-        //protected void ctrlProduct_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    var FirstName = FindControl("ctrlFirstName") as TextBox;
-        //    var LastName = FindControl("ctrlLastName") as TextBox;
-        //    var City = FindControl("ctrlCity") as TextBox;
-        //    var Country = FindControl("ctrlCountry") as TextBox;
-        //    var Phone = FindControl("ctrlPhone") as TextBox;
-
-        //    //foreach (RepeaterItem item in ProductRepeater.Items)
-        //    //{
-        //    //    var tbQty = item.FindControl("Quantity") as TextBox;
-        //    //    //var txQty = tbQty.Text;
-        //    //    if (tbQty.Text !=null && int.Parse(tbQty.Text) > 0)
-        //    //    {
-        //    //        var Key = item.FindControl("key") as Label;
-        //    //        ProductID = int.Parse(Key.Text);
-        //    //        OrderQty = int.Parse(tbQty.Text);
-
-        //    //form1.FindControl("FirstName").ToString()
-
-
-        //}
-
         //protected void ctrlProduct_DataBinding(object sender, EventArgs e)
         //{
         //    //FindControl("ctrlProduct");
@@ -111,10 +86,6 @@ namespace CRUD_Powell
                 // Fix This
                 sqlCmd.Parameters.AddWithValue("@ProductID", int.Parse(ctrlProduct.Text));
                 sqlCmd.Parameters.AddWithValue("@OrderQty", int.Parse(ctrlQuantity.Text));
-                //var foo = lblUnitPrice.Text;
-                //var bar = int.Parse(lblUnitPrice.Text);
-                //var bar = decimal.Parse(foo);
-                //sqlCmd.Parameters.AddWithValue("@UnitPrice", int.Parse(lblUnitPrice.Text));
 
                 sqlCmd.Parameters.Add("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
                 var CustomerID = sqlCmd.ExecuteNonQuery();

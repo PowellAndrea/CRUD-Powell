@@ -37,9 +37,10 @@
 
             </table>
             </div>
-       
-        <h2>Product List</h2>
-            <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" TextMode = "Number" AutoPostBack="true" />
+        <H3>
+            Order Quantity and Product
+        </H3>
+            Quantity: <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" Width="50px" TextMode = "Number" AutoPostBack="true" />
 
 
             <asp:Label ID = "lblProductName" runat = "server" Visible="false" Text = '<%#Eval("ProductName") %>' />
@@ -60,10 +61,10 @@
         <p>
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Order Now" />
         </p>
+            <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" ProviderName="<%$ ConnectionStrings:GourmetShopConnectionString.ProviderName %>" SelectCommand="ProductList_Powell" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
-
-
-    <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" ProviderName="<%$ ConnectionStrings:GourmetShopConnectionString.ProviderName %>" SelectCommand="ProductList_Powell" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
     </form>
+
+
 </body>
 </html>
