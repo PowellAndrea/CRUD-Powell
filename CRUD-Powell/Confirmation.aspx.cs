@@ -14,7 +14,12 @@ namespace CRUD_Powell
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            { 
+            {
+                lblFirstName.Text = Request.QueryString["FirstName"];
+                lblOrderNumber.Text = Request.QueryString["OrderNumber"];
+                lblCustomerID.Text = Request.QueryString["CustomerID"];
+                lblProductName.Text = Request.QueryString["ProductName"];
+
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
                 {
                     SqlCommand sqlCmd = new SqlCommand("dbo.NewCustomerSummary_Powell", conn);
@@ -25,7 +30,6 @@ namespace CRUD_Powell
 
                     SqlDataReader reader = sqlCmd.ExecuteReader();
                     
-
                     conn.Close();
                     conn.Dispose();
                 }

@@ -9,15 +9,15 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            Welcome <asp:Label ID="lblFirstName" runat="server" Text='<%#Eval("FirstName") %>'></asp:Label>
-            Your Customer Number is
-            <asp:Label ID="lblCustomerID" runat="server"  Text='<%#Eval("CustomerId") %>'></asp:Label>
-            and yourd order number is
+            Welcome <asp:Label ID="lblFirstName" runat="server" ></asp:Label>.<br />
+            Your customer number is
+            <asp:Label ID="lblCustomerID" runat="server"  Text='<%#Eval("CustomerID") %>'></asp:Label>, 
+            and your order number is
             <asp:Label ID="lblOrderNumber" runat="server" Text='<%#Eval("OrderNumber") %>'></asp:Label>.
 
             <H1>
                 Your order of 
-                <asp:Label ID="lblProductName" runat="server"></asp:Label>
+                <asp:Label ID="lblProductName" runat="server" Text='<%#Eval("ProductName") %>'></asp:Label>
                 is on the way.
             </H1>
         </div>

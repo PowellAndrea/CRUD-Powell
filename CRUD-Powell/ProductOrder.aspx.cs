@@ -20,18 +20,6 @@ namespace CRUD_Powell
 {
     public partial class ProductOrder : System.Web.UI.Page
     {
-        string FirstName = "Andrea";
-        string LastName = "Powell";
-        string City = "City";
-        string Country = "Country";
-        string Phone = string.Empty;
-
-        string strProductDetail = string.Empty;
-        int ProductID = 0;
-        string ProductName = string.Empty;
-        decimal UnitPrice = 0;
-        int Quantity = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
@@ -44,31 +32,16 @@ namespace CRUD_Powell
 
                 SqlDataReader reader = sqlCmd.ExecuteReader();
 
-                //foreach (var item in reader)
-                //{
-                //    int ProductID = reader.GetInt32(0);
-                //    string ProductName = reader.GetName(1);
-                //    decimal UnitPrice = reader.GetDecimal(2);
-                //    string Package = reader.GetString(3);
-                //    string strProductDetail = reader.GetString(1) + " - " + UnitPrice.ToString() + " (" + reader.GetString(3) +")";
-                //}
-
                 conn.Close();
                 conn.Dispose();
             }
         }
-        //protected void ctrlProduct_DataBinding(object sender, EventArgs e)
-        //{
-        //    //FindControl("ctrlProduct");
-        //    ProductID = int.Parse(lblProductID.ToString());
-        //    UnitPrice = decimal.Parse(lblUnitPrice.ToString());
-        //    ProductName = lblProductName.ToString();
-        //    strProductDetail = lblProductName.ToString();
-        //}
 
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            string OrderNumber = string.Empty;
+            int CustomerID = 0;
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
             {
                 SqlCommand sqlCmd = new SqlCommand("dbo.InsertCustomerAndOrder_Powell", conn);
@@ -83,17 +56,25 @@ namespace CRUD_Powell
                 sqlCmd.Parameters.AddWithValue("@Country", ctrlCountry.Text);
                 sqlCmd.Parameters.AddWithValue("@Phone", ctrlCity.Text);
 
-                // Fix This
                 sqlCmd.Parameters.AddWithValue("@ProductID", int.Parse(ctrlProduct.Text));
                 sqlCmd.Parameters.AddWithValue("@OrderQty", int.Parse(ctrlQuantity.Text));
 
                 sqlCmd.Parameters.Add("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
-                var CustomerID = sqlCmd.ExecuteNonQuery();
+                sqlCmd.Parameters.Add("@OrderNumber", SqlDbType.NVarChar,10).Direction= ParameterDirection.Output;
+
+                sqlCmd.ExecuteScalar();
+
+                OrderNumber = sqlCmd.Parameters["@OrderNumber"].Value.ToString();
+                CustomerID = int.Parse(sqlCmd.Parameters["@CustomerID"].Value.ToString());
 
                 conn.Close();
                 conn.Dispose();
             }
-            Response.Redirect("Confirmation.aspx");
+            Response.Redirect("Confirmation.aspx?FirstName=" + ctrlFirstName.Text
+                + "&&OrderNumber=" + OrderNumber
+                + "&&CustomerID=" + CustomerID
+                + "&&ProductName=" + lblProductName.Text);
+
         }
     }
 }
