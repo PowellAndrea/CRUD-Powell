@@ -21,13 +21,24 @@
                 is on the way.
             </H1>
         </div>
-        <hr />
-        <h3>Order History</h3>
 
 
-        <asp:Repeater ID="OrderRepeater" runat="server">
+        <h2>Order History</h2>
+                        <asp:TextBox ID="tbOrderNumber" runat="server" />
+                <asp:TextBox ID="tbOrderDate" runat="server" />
+                <asp:TextBox ID="tbProductName" runat="server" />
+                <asp:TextBox ID="tbTotalAmount" runat="server" />
+        <asp:Repeater ID="OrderRepeater" runat="server" DataSourceID="GourmetShop">
+            <ItemTemplate>
+
+            </ItemTemplate>
         </asp:Repeater>
-        <br />
+
+                    <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" SelectCommand="NewCustomerSummary_Powell" SelectCommandType="StoredProcedure">
+                        <SelectParameters>
+                            <asp:Parameter Name="CustomerID" Type="Int32" />
+                        </SelectParameters>
+        </asp:SqlDataSource>
 
     </form>
 </body>

@@ -19,7 +19,7 @@
         <H3>
             Order Quantity and Product
         </H3>
-            Quantity: <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" Width="50px" TextMode = "Number" />
+            Quantity: <asp:TextBox ID = "ctrlQuantity" runat = "server" Visible="true" Width="50px" Text=0 TextMode = "Number" />
 
             <asp:DropDownList ID="ctrlProduct"
                 runat="server" 
@@ -28,12 +28,7 @@
                 DataTextField = "ProductName"  
                 DataValueField="Id"/>
 
-
-            <asp:Label ID = "lblProductName" runat = "server" Visible="false" Text = '<%#Eval("ProductName") %>' />
-            <asp:Label ID = "lblUnitPrice" runat = "server" Visible="false" Text = '<%#Eval("UnitPrice") %>' />
-            <asp:Label ID = "lblProductID" runat="server" Visible="false" Text='<%#Eval("Id") %>' />
         <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Order Now" />
-Fix This:
                     <asp:SqlDataSource ID="GourmetShop" runat="server" ConnectionString="<%$ ConnectionStrings:GourmetShopConnectionString %>" ProviderName="<%$ ConnectionStrings:GourmetShopConnectionString.ProviderName %>" SelectCommand="ProductList_Powell" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
     </form>

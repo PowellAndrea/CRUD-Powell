@@ -60,6 +60,42 @@ namespace CRUD_Powell
         protected global::System.Web.UI.WebControls.Label lblProductName;
 
         /// <summary>
+        /// tbOrderNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbOrderNumber;
+
+        /// <summary>
+        /// tbOrderDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbOrderDate;
+
+        /// <summary>
+        /// tbProductName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbProductName;
+
+        /// <summary>
+        /// tbTotalAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbTotalAmount;
+
+        /// <summary>
         /// OrderRepeater control.
         /// </summary>
         /// <remarks>
@@ -67,5 +103,14 @@ namespace CRUD_Powell
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater OrderRepeater;
+
+        /// <summary>
+        /// GourmetShop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource GourmetShop;
     }
 }

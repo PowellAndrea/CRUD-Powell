@@ -19,6 +19,7 @@ namespace CRUD_Powell
                 lblOrderNumber.Text = Request.QueryString["OrderNumber"];
                 lblCustomerID.Text = Request.QueryString["CustomerID"];
                 lblProductName.Text = Request.QueryString["ProductName"];
+                
 
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GourmetShopConnectionString"].ConnectionString))
                 {
@@ -28,18 +29,20 @@ namespace CRUD_Powell
                     sqlCmd.Connection = conn;
                     sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                    sqlCmd.Parameters.AddWithValue("@CustomerID",lblCustomerID.Text );
                     SqlDataReader reader = sqlCmd.ExecuteReader();
-                    
+                    while (reader.Read())
+                    {
+                        tbOrderDate.Text = reader["OrderDate"].ToString();
+                        tbOrderNumber.Text = reader["OrderNumber"].ToString();
+                        tbProductName.Text = reader["ProductName"].ToString();
+                        tbTotalAmount.Text = reader["TotalAmount"].ToString();
+                    }
+
                     conn.Close();
                     conn.Dispose();
                 }
             }
-
-        }
-
-        protected void OrderRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-
         }
     }
 }
