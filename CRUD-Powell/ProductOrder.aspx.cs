@@ -56,7 +56,7 @@ namespace CRUD_Powell
                 sqlCmd.Parameters.AddWithValue("@Country", ctrlCountry.Text);
                 sqlCmd.Parameters.AddWithValue("@Phone", ctrlCity.Text);
 
-                sqlCmd.Parameters.AddWithValue("@ProductID", int.Parse(ctrlProduct.Text));
+                sqlCmd.Parameters.AddWithValue("@ProductID",ctrlProduct.SelectedValue);
                 sqlCmd.Parameters.AddWithValue("@OrderQty", int.Parse(ctrlQuantity.Text));
 
                 sqlCmd.Parameters.Add("@CustomerID", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -73,7 +73,7 @@ namespace CRUD_Powell
             Response.Redirect("Confirmation.aspx?FirstName=" + ctrlFirstName.Text
                 + "&&OrderNumber=" + OrderNumber
                 + "&&CustomerID=" + CustomerID
-                + "&&ProductName=" + lblProductName.Text);
+                + "&&ProductName=" + ctrlProduct.SelectedItem);
 
         }
     }
