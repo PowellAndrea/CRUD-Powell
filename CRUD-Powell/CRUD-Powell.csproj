@@ -93,6 +93,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\InsertCustomerAndOrder_Powell.sql" />
+    <Content Include="Scripts\NewCustomerSummary_Powell.sql" />
     <Content Include="Scripts\ProductList_Powell.sql" />
     <Content Include="Web.config" />
   </ItemGroup>

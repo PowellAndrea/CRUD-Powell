@@ -1,13 +1,12 @@
 USE [GourmetShop]
 GO
 
-/****** Object:  StoredProcedure [dbo].[InsertCustomerAndOrder_Powell]    Script Date: 2/21/2024 10:32:58 AM ******/
+/****** Object:  StoredProcedure [dbo].[InsertCustomerAndOrder_Powell]    Script Date: 2/25/2024 7:24:30 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
 
 
 CREATE PROCEDURE [dbo].[InsertCustomerAndOrder_Powell]
@@ -16,43 +15,48 @@ CREATE PROCEDURE [dbo].[InsertCustomerAndOrder_Powell]
 	@City NVARCHAR(20) = null,
 	@Country NVARCHAR(20) = null,
 	@Phone NVARCHAR(20) = null,
+
+	@CustomerID int = null OUTPUT,
+	@OrderNumber nvarchar(10) OUTPUT,
+
 	@ProductID int,
-	@OrderQty int,
-	@UnitPrice float
+	@OrderQty int
 as
 begin
 DECLARE 
-	@CustomerID int,
-	@OrderNumber nvarchar(10),
-	@OrderID int
+	@OrderID int,
+	@UnitPrice decimal = 0
 
-Set @OrderNumber = CAST(FLOOR(RAND()*(1000) + 1) AS nvarchar(4)) + LEFT(@LastName,2)
+SET @UnitPrice = (Select UnitPrice FROM [Product] WHERE Product.ID = @ProductID)
 
-INSERT INTO dbo.Customer(
-	FirstName,
-	LastName,
-	City,
-	Country,
-	Phone)
-VALUES (
-	@FirstName,
-	@LastName,
-	@City,
-	@Country,
-	@Phone)
+SET @OrderNumber = CAST(FLOOR(RAND()*(10000) + 1) AS nvarchar(5)) + LEFT(@LastName,2)
 
-SET @CustomerID = SCOPE_IDENTITY();
+BEGIN Transaction
+	INSERT INTO dbo.Customer(
+		FirstName,
+		LastName,
+		City,
+		Country,
+		Phone)
+	VALUES (
+		@FirstName,
+		@LastName,
+		@City,
+		@Country,
+		@Phone)
 
-INSERT INTO [Order](
-	OrderDate,
-	OrderNumber,
-	CustomerID,
-	TotalAmount)
-VALUES (
-	GETDATE(),
-	@OrderNumber,
-	@CustomerID,
-	@OrderQty * @OrderQty)
+SET @CustomerID = SCOPE_IDENTITY()
+
+	INSERT INTO [Order](
+		OrderDate,
+		OrderNumber,
+		CustomerID,
+		TotalAmount)
+	VALUES (
+		GETDATE(),
+		@OrderNumber,
+		@CustomerID,
+		@OrderQty * @UnitPrice)
 
 SET @OrderID = SCOPE_IDENTITY();
 
@@ -68,7 +72,7 @@ VALUES(
 	@UnitPrice,
 	@OrderQty
 	)
-
+COMMIT
 end
 GO
 
